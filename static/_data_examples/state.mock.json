@@ -1,0 +1,23 @@
+[
+	{
+		"difficulty": 200,
+		"category": "True or False",
+		"team": "foofighter",
+		"correct": true
+	}, {
+		"difficulty": 300,
+		"category": "True or False",
+		"team": "foofighter",
+		"correct": false
+	}, {
+		"difficulty": 400,
+		"category": "True or False",
+		"team": "leo",
+		"correct": false
+	}, {
+		"difficulty": 100,
+		"category": "apply(operator)",
+		"team": "leo",
+		"correct": false
+	}
+]

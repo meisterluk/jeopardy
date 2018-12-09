@@ -1,0 +1,636 @@
+@category import stdlib
+@difficulty 100
+
+Future statement definitions
++++
+__future__
+
+___
+
+@category import stdlib
+@difficulty 200
+
+Shallow and deep copy operations
++++
+copy
+
+___
+
+@category import stdlib
+@difficulty 300
+
+Interpret bytes as packed binary data
++++
+struct
+
+___
+
+@category import stdlib
+@difficulty 400
+
+Simple lexical analysis
++++
+shlex
+
+___
+
+@category import stdlib
+@difficulty 500
+
+Helpers for computing deltas
++++
+difflib
+
+___
+
+@category what the package?
+@difficulty 100
+
+turtle
++++
+Turtle graphics
+
+___
+
+@category what the package?
+@difficulty 200
+
+doctest
++++
+Test interactive Python examples
+
+___
+
+@category what the package?
+@difficulty 300
+
+py_compile
++++
+Compile Python source files
+
+___
+
+@category what the package?
+@difficulty 400
+
+imp
++++
+Access the import internals
+
+___
+
+@category what the package?
+@difficulty 500
+
+code
++++
+Interpreter base classes
+
+___
+
+@category Python history
+@difficulty 100
+
+<p class="half">I chose Python as a working title for the project, being in a slightly irreverent mood (and a big fan of _____ Python's ______).</p>
++++
+<div style="display: flex; flex-direction: row; justify-content: center">
+  <img src="static/img/month-python-flying-circus.png" alt="Monty Python's Flying Circus"
+       style="height:200px" />
+  <div style="margin-left: 20px; text-align: left; line-height:">
+    a big fan of <strong>Monty</strong> Python's <strong>Flying Circus</strong> <br/>
+    (Foreword for "Programming Python", 1st edition)
+  </div>
+</div>
+
+___
+
+@category Python history
+@difficulty 200
+
+Guido stepped down as BDFL in ______
++++
+July 2018
+
+___
+
+@category Python history
+@difficulty 300
+
+first release with <span style="font-family:monospace">with statement</span> support: v______
++++
+2.5
+
+___
+
+@category Python history
+@difficulty 400
+
+tail call optimization will ______ supported according to ___________
++++
+will never be supported according to Guido van Rossum
+
+___
+
+@category Python history
+@difficulty 500
+
+<p>PyGraz was founded in ~2008.<br/>
+The first documented meeting (acc. to the website) was in ______</p>
++++
+2010
+
+___
+
+@category apply(operator)
+@difficulty 100
+
+<code class="syntax"><span class="o">not</span></code>
++++
+converts value to a boolean and negates it
+
+___
+
+@category apply(operator)
+@difficulty 200
+
+<code class="syntax"><span class="o">**</span></code>
++++
+exponentiation, keyword unpacking
+
+___
+
+@category apply(operator)
+@difficulty 300
+
+<code class="syntax"><span class="o">:</span></code>
++++
+introduces block, function annotations, type hints
+
+___
+
+@category apply(operator)
+@difficulty 400
+
+<code class="syntax"><span class="o">~</span></code>
++++
+bit-wise operation unary invert as two's complement
+
+___
+
+@category apply(operator)
+@difficulty 500
+
+<code class="syntax"><span class="o">@</span></code>
++++
+decorators, matrix multiplication
+
+___
+
+@category magic methods
+@difficulty 100
+
+<code class="syntax"><span class="kn">__contains__</span></code>
++++
+<code class="syntax"><span class="kn">in</span></code>
+
+<pre class="syntax"><span class="o">&gt;&gt;&gt;</span> <span class="mi">1</span> <span class="ow">in</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span>
+<span class="bp">True</span></pre>
+
+___
+
+@category magic methods
+@difficulty 200
+
+<code class="syntax"><span class="kn">__missing__</span></code>
++++
+<p class="half">Called by <code class="syntax"><span class="kn">dict</span><span class="o">.</span><span class="k">__getitem__</span><span class="p">()</span></code> to implement <code class="syntax"><span class="kn">self</span><span class="o">[</span><span class="k">key</span><span class="o">]</span></code> for dict subclasses when key is not in the dictionary</p>
+
+___
+
+@category magic methods
+@difficulty 300
+
+<code class="syntax"><span class="kn">__length_hint__</span></code>
++++
+<p class="half">Should return an estimated length for the object. The length must be an integer ≥ 0. This method is purely an optimization and is never required for correctness.</p>
+
+___
+
+@category magic methods
+@difficulty 400
+
+<code class="syntax"><span class="kn">__divmod__</span></code>
++++
+<p class="half">Take two (non complex) numbers as arguments and return a pair of numbers consisting of their quotient and remainder when using integer division</p>
+
+___
+
+@category magic methods
+@difficulty 500
+
+<code class="syntax"><span class="kn">__ipow__</span></code>
++++
+<code class="syntax"><span class="o">**=</span></code>
+<p>in-place power assignment</p>
+
+___
+
+@category F.A.Q.
+@difficulty 100
+
+Why am I getting an UnboundLocalError when the variable has a value?
+
+<pre class="syntax"><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">foo</span><span class="p">():</span>
+<span class="o">...</span>     <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="o">...</span>     <span class="n">x</span> <span class="o">+=</span> <span class="mi">1</span>
+
++++
+
+Every variable is local to its scope. <code class="syntax"><span class="n">x</span></code> in <code class="syntax"><span class="n">x</span> <span class="o">+=</span> <span class="mi">1</span></code> shadows the outer <code><span class="n">x</span></code> in <code><span class="n">x</span> <span class="o">=</span> <span class="mi">10</span></code>. To use the global variable in the local scope, you need to use <code class="syntax"><span class="k">global</span> <span class="n">x</span></code> before writing the variable with <code class="syntax"><span class="n">x</span> <span class="o">+=</span> <span class="mi">1</span></code>. However, read-only access on variables in the global scope is always allowed in Python.
+
+___
+
+@category F.A.Q.
+@difficulty 200
+
+What is the difference between arguments and parameters?
+
+<pre class="syntax"><span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">foo</span><span class="p">,</span> <span class="n">bar</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="n">func</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="n">bar</span><span class="o">=</span><span class="mi">314</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="n">somevar</span><span class="p">)</span></pre>
+
++++
+
+<pre class="syntax"><span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="n">foo</span><span class="p">,</span> <span class="n">bar</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">}</span>
+<span class="n">arguments</span> <span class="o">=</span> <span class="p">{</span><span class="mi">42</span><span class="p">,</span> <span class="mi">314</span><span class="p">,</span> <span class="n">somevar</span><span class="p">}</span></pre>
+
+___
+
+@category F.A.Q.
+@difficulty 300
+
+Why do lambdas defined in a loop with different values all return the same result?
+<pre class="syntax" style="font-size:1.2rem">
+<span class="o">&gt;&gt;&gt;</span> <span class="n">squares</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+<span class="o">...</span>     <span class="n">squares</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">squares</span><span class="p">[</span><span class="mi">2</span><span class="p">]()</span>
+<span class="mi">16</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">squares</span><span class="p">[</span><span class="mi">4</span><span class="p">]()</span>
+<span class="mi">16</span></pre>
++++
+<p><code class="n">x</code> is bound iteration variable <code class="n">x</code> which attains final value</p>
+
+___
+
+@category F.A.Q.
+@difficulty 400
+
+Is there an equivalent of C’s “cond ? then : else” ternary operator?
++++
+<p>Yes, there is. The syntax is as follows:
+<code class="syntax"><span class="p">[</span><span class="n">on_true</span><span class="p">]</span> <span class="k">if</span> <span class="p">[</span><span class="n">expression</span><span class="p">]</span> <span class="k">else</span> <span class="p">[</span><span class="n">on_false</span><span class="p">]</span></code></p>
+
+<pre class="syntax"><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">25</span>
+<span class="n">small</span> <span class="o">=</span> <span class="n">x</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">y</span> <span class="k">else</span> <span class="n">y</span></pre>
+
+<p>Before this syntax was introduced in Python 2.5, a common idiom was to use logical operators:</p>
+
+<pre class="syntax"><span class="p">[</span><span class="n">expression</span><span class="p">]</span> <span class="ow">and</span> <span class="p">[</span><span class="n">on_true</span><span class="p">]</span> <span class="ow">or</span> <span class="p">[</span><span class="n">on_false</span><span class="p">]</span></pre>
+
+___
+
+@category F.A.Q.
+@difficulty 500
+
+Is it possible to write obfuscated one-liners in Python? What does this code do?
+<pre class="syntax"><span class="k">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">f</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">f</span><span class="p">:(</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">f</span><span class="p">)</span><span class="o">+</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="n">f</span><span class="p">))</span> <span class="k">if</span> <span class="n">x</span><span class="o">&gt;</span><span class="mi">1</span> <span class="k">else</span> <span class="mi">1</span><span class="p">:</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">f</span><span class="p">),</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))))</span></pre>
++++
+<p>Compute the first 10 Fibonacci numbers:</p>
+<pre>[1, 1, 2, 3, 5, 8, 13, 21, 34, 55]</pre>
+
+___
+
+@category command line arguments
+@difficulty 100
+
+<pre>-V</pre>
++++
+<p class="half">Prints the Python version number of the  executable  and  exits.
+When given twice, print more information about the build.</p>
+
+___
+
+
+@category command line arguments
+@difficulty 200
+
+<pre>-O</pre>
+<p>(this is an oh, not a zero)</p>
++++
+<p class="half">
+Remove  assert  statements and any code conditional on the value
+of <code>__debug__</code>; augment the filename for compiled (bytecode) files
+by adding .opt-1 before the .pyc extension.
+</p>
+
+___
+
+@category command line arguments
+@difficulty 300
+
+<pre>-c</pre>
++++
+<p class="half">
+Specify the command to execute (see next section).  This  terminates
+the option list (following options are passed as arguments to the command).
+</p>
+
+___
+
+@category command line arguments
+@difficulty 400
+
+<pre>-u</pre>
++++
+<p class="half">
+Force  the  binary  I/O  layers  of  stdout  and  stderr  to  be
+unbuffered.   stdin is always buffered.  The text I/O layer will
+still be line-buffered.
+</p>
+
+___
+
+@category command line arguments
+@difficulty 500
+
+<pre>-OO</pre>
++++
+<p class="half">
+Do  <code>-O</code> and also discard docstrings; change the filename for compiled
+(bytecode) files by adding .opt-2 before the  .pyc  extension.
+</p>
+___
+
+@category True or False
+@difficulty 100
+
+Python had a bool type from the very beginning
++++
+No, it was introduced in Python 2.3 (PEP 285)
+
+___
+
+@category True or False
+@difficulty 200
+
+A PEP specifies that there will be no official Python 2.8 release
++++
+Yes, <span class="pep">PEP 404 — Python 2.8 Un-release Schedule</span>
+
+___
+
+@category True or False
+@difficulty 300
+
+A PEP specifies a stable ABI for Python
++++
+Yes, <span class="pep">PEP 384 — Defining a Stable ABI</span>
+
+___
+
+@category True or False
+@difficulty 400
+
+<p class="half">CPython (e.g. 2.3) is famous for using Heapsort instead of the more common QuickSort.</p>
++++
+<p class="half">No, CPython 2.3 introduced Timsort by Tim Peters. It runs with O(n log n) worst case and O(n) best [sorted] case.</p>
+
+___
+
+@category True or False
+@difficulty 500
+
+Some PEP reintroduces <code class="syntax"><span class="k">u</span><span class="s1">""</span><code> unicode literals
++++
+<p class="half">Yes, <span class="pep">PEP 414 — Explicit Unicode Literal for Python 3.3</span>
+by Armin Ronacher and Nick Coghlan</p>
+
+___
+
+@category sys.stdout.readlines()
+@difficulty 100
+
+<code class="syntax"><span class="k">print</span><span class="p">(</span><span class="mi">0</span> <span class="ow">and</span> <span class="mi">1</span> <span class="ow">or</span> <span class="mi">2</span> <span class="k">if</span> <span class="mi">3</span> <span class="k">else</span> <span class="mi">4</span><span class="p">)</span></code>
++++
+<code class="syntax"><span class="n">2</span></code>
+
+___
+
+@category sys.stdout.readlines()
+@difficulty 200
+
+<code class="syntax"><span class="k">print</span><span class="p">(</span><span class="n">codecs</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;cltenm&#39;</span><span class="p">,</span> <span class="s1">&#39;rot13&#39;</span><span class="p">))</span></code>
++++
+<code class="syntax"><span class="s1">pygraz</span></code>
+
+___
+
+@category sys.stdout.readlines()
+@difficulty 300
+
+<code class="syntax"><span class="kn">import</span> <span class="nn">this</span></code>
++++
+<pre style="font-size:0.8rem">The Zen of Python, by Tim Peters
+
+Beautiful is better than ugly.
+Explicit is better than implicit.
+Simple is better than complex.
+Complex is better than complicated.
+Flat is better than nested.
+Sparse is better than dense.
+Readability counts.
+Special cases aren't special enough to break the rules.
+Although practicality beats purity.
+Errors should never pass silently.
+Unless explicitly silenced.
+In the face of ambiguity, refuse the temptation to guess.
+There should be one-- and preferably only one --obvious way to do it.
+Although that way may not be obvious at first unless you're Dutch.
+Now is better than never.
+Although never is often better than *right* now.
+If the implementation is hard to explain, it's a bad idea.
+If the implementation is easy to explain, it may be a good idea.
+Namespaces are one honking great idea -- let's do more of those!</pre>
+
+___
+
+@category sys.stdout.readlines()
+@difficulty 400
+
+<code class="syntax"><span class="k">print</span><span class="p">(</span><span class="nb">str</span><span class="p">((</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="nb">type</span><span class="p">(</span><span class="n">v</span><span class="p">)(</span><span class="s1">&#39;nan&#39;</span><span class="p">))(</span><span class="mf">1.2</span><span class="p">))</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="o">*</span><span class="mi">8</span><span class="p">)</span></code>
++++
+<code>NanNanNanNanNanNanNanNan</code>
+
+___
+
+@category sys.stdout.readlines()
+@difficulty 500
+
+<code class="syntax"><span class="k">print</span><span class="p">(</span><span class="s1">&#39;{0:&lt;03X}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="mi">49j</span><span class="o">.</span><span class="n">imag</span><span class="o">**</span><span class="mf">0.5</span><span class="p">))[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></code>
++++
+<code>007</code>
+
+___
+
+@category except Exception
+@difficulty 100
+
+<code class="syntax"><span class="mi">1</span><span class="o">/</span><span class="mi">0</span></code>
++++
+<pre class="syntax">Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+ZeroDivisionError: division by zero</pre>
+
+___
+
+@category except Exception
+@difficulty 200
+
+<code class="syntax"><span class="s1">&#39;{:s}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span></code>
++++
+<pre class="syntax">Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+ValueError: Unknown format code 's' for object of type 'float'</pre>
+
+___
+
+@category except Exception
+@difficulty 300
+
+<code class="syntax"><span class="s1">&#39;alskdj&#39;</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span></code>
++++
+<pre class="syntax">Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+AttributeError: 'str' object has no attribute 'decode'</pre>
+
+___
+
+@category except Exception
+@difficulty 400
+
+<code class="syntax"><span class="nb">float</span><span class="p">(</span><span class="n">unicodedata</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="s1">&#39;①&#39;</span><span class="p">))</span></code>
++++
+<pre class="syntax">Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+ValueError: could not convert string to float: 'CIRCLED DIGIT ONE'</pre>
+
+___
+
+@category except Exception
+@difficulty 500
+
+<code class="syntax"><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;404.txt&#39;</span><span class="p">)</span></code>
++++
+<pre class="syntax">Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+FileNotFoundError: [Errno 2] No such file or directory: '404.txt'</pre>
+
+___
+
+@category PyPI libraries
+@difficulty 100
+
+numpy
++++
+<p>NumPy: array processing for numbers, strings, records, and objects</p>
+<img src="static/img/numpy-icon.png" alt="NumPy logo" />
+
+___
+
+@category PyPI libraries
+@difficulty 200
+
+django
++++
+<p class="half">A high-level Python Web framework that encourages rapid development and clean, pragmatic design.</p>
+<img src="static/img/django-icon.jpg" alt="Django" />
+
+___
+
+@category PyPI libraries
+@difficulty 300
+
+pytz
++++
+World timezone definitions, modern and historical
+
+___
+
+@category PyPI libraries
+@difficulty 400
+
+tornado
++++
+<div class="half">Tornado is a Python web framework and asynchronous networking library, originally developed at FriendFeed.</div>
+
+___
+
+@category PyPI libraries
+@difficulty 500
+
+six
++++
+Python 2 and 3 compatibility utilities
+
+___
+
+@category Monty Python Trivia
+@difficulty 100
+
+egg
++++
+python package distribution format
+
+___
+
+@category Monty Python Trivia
+@difficulty 200
+
+cheese shop
++++
+PyPI (Cheese Shop sketch)
+
+___
+
+@category Monty Python Trivia
+@difficulty 300
+
+spam and eggs
++++
+“spam and eggs” as replacement for traditional “foo and bar”
+
+___
+
+@category Monty Python Trivia
+@difficulty 400
+
+Bicycle Repair Man
++++
+<p>refactoring browser functionality</p>
+<p>The <em>Bicycle Repair Man</em> project is an attempt to create refactoring browser functionality for python. It is packaged as a library that can be added to IDEs and editors to provide refactoring capabilities. Bindings for Emacs and Vi are included with the package.</p>
+<p><em>Bicycle Repairman</em>, superhero in a Monty Python skit<br/>his special power was repairing bicycles</p>
+
+___
+
+@category Monty Python Trivia
+@difficulty 500
+
+Grail
++++
+<p>web browser</p>
+<p>Grail was a free extensible multi-platform web browser written in the Python programming language. The project was started in August 1995, with its first public release in November of that year. The last official release was version 0.6 in 1999.
+One of the major distinguishing features of Grail was the ability to run client-side Python code, in much the same way as mainstream browsers run client-side JavaScript code.</p>
+<p>movie “Monty Python and the Holy Grail”</p>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Jeopardy</title>
+    <style>
+      html, body { height: 98%; }
+      body {
+        width: 98%; display: grid; background-color: #EEE; font-size: 18px;
+        grid-template-columns: 1fr;
+        grid-template-rows: 20% 1fr 20%;
+      }
+
+      header, main, footer { display: flex; width: 90%; margin: 20px auto; padding: 10px; text-align: center; border-radius: 10px; box-shadow: 0px 0px 5px #666; flex-direction: column; justify-content: center; }
+      header { background-color: #FC3; }
+      main { background-color: #FAA; overflow: auto; }
+      footer { background-color: #AAF; min-height: 140px; }
+
+      header h1 { margin-top: 5px; margin-bottom: 5px; }
+      .categories { width: 100%; display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: 1fr; grid-column-gap: 20px; }
+      .category { font-size: 2rem; place-self: center center; }
+      #qa { width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: stretch; }
+      #question { font-size: 2rem; }
+      #delimiter { min-height: 70px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+      #answer { font-size: 2rem; }
+      #overview { width: 100%; height: 100%; font-size: 2rem; display: flex; flex-direction: column; justify-content: space-around; align-items: stretch; align-content: center; }
+      #overview .difficulty { width: 100%; height: 100%; display: flex; flex-direction: row; justify-content: space-around; align-items: center; align-content: center; }
+      #overview button { width: 100%; height: 100%; background: none; border: 0; font-size: 2rem; }
+      #overview .correct-answer { text-decoration: underline; color: #292; }
+      #overview .wrong-answer { text-decoration: underline; color: #600; }
+      footer { place-items: center center; }
+      .teams { width: 100%; height: 100%; display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: 1fr; grid-column-gap: 20px; }
+      .team { place-self: center center; padding: 5px; width: 90%; height: 90%; display: flex; justify-content: center; }
+      .team button { border: 0; background: none; }
+      .team-name { font-size: 2rem; font-weight: bold; }
+      .team-points { font-size: 1.5rem; }
+      .team:hover { background-color: #88D; cursor: pointer; }
+      .team #team1 { background-color: #00F; }
+      .team #team2 { background-color: #F00; }
+      .team #team3 { background-color: #0F0; }
+      .team #team4 { background-color: #FF0; }
+      #randomizer .text { font-size: 3rem; }
+
+      .half { width: 50%; margin: auto; }
+      .pep { border-radius: 5px; border: 1px solid #966; }
+
+      /* https://stackoverflow.com/a/9724124 */
+      #overlay {
+        display: flex;
+        position: absolute;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(255, 255, 255, 0.5);
+        background: url(data:;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAABl0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuNUmK/OAAAAATSURBVBhXY2RgYNgHxGAAYuwDAA78AjwwRoQYAAAAAElFTkSuQmCC) repeat scroll transparent\9; /* ie fallback png background image */
+        z-index: 9999;
+      }
+      #overlay > * {
+        background-color: white;
+        padding: 30px;
+        width: 450px;
+        max-height: 300px;
+      }
+
+      #specify-teams input { min-height: 40px; font-size: 2rem; }
+      #specify-teams button { font-size: 1rem; }
+      #notification { text-align: center; }
+
+
+      .syntax * { text-indent: 0; }
+      .syntax { font-family: monospace; padding: 5px; white-space: pre-wrap; text-align: left; margin: 5px; }
+      .syntax .c { color: #60a0b0; font-style: italic; font-size: 90%; } /* Comment */
+      .syntax .err { border: 1px solid #FF0000 } /* Error */
+      .syntax .k { color: /* #007020 */ #C40; font-weight: bold } /* Keyword */
+      .syntax .o { color: #666666 } /* Operator */
+      .syntax .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+      .syntax .cp { color: #007020 } /* Comment.Preproc */
+      .syntax .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+      .syntax .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+      .syntax .gd { color: #A00000 } /* Generic.Deleted */
+      .syntax .ge { font-style: italic } /* Generic.Emph */
+      .syntax .gr { color: #FF0000 } /* Generic.Error */
+      .syntax .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+      .syntax .gi { color: #00A000 } /* Generic.Inserted */
+      .syntax .go { color: #808080 } /* Generic.Output */
+      .syntax .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+      .syntax .gs { font-weight: bold } /* Generic.Strong */
+      .syntax .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+      .syntax .gt { color: #0040D0 } /* Generic.Traceback */
+      .syntax .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+      .syntax .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+      .syntax .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+      .syntax .kp { color: #007020 } /* Keyword.Pseudo */
+      .syntax .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+      .syntax .kt { color: #902000 } /* Keyword.Type */
+      .syntax .m { color: #40a070 } /* Literal.Number */
+      .syntax .s { color: #4070a0 } /* Literal.String */
+      .syntax .na { color: #4070a0 } /* Name.Attribute */
+      .syntax .nb { color: #007020 } /* Name.Builtin */
+      .syntax .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+      .syntax .no { color: #60add5 } /* Name.Constant */
+      .syntax .nd { color: #555555; font-weight: bold } /* Name.Decorator */
+      .syntax .ni { color: #d55537; font-weight: bold } /* Name.Entity */
+      .syntax .ne { color: #007020 } /* Name.Exception */
+      .syntax .nf { color: #06287e } /* Name.Function */
+      .syntax .nl { color: #002070; font-weight: bold } /* Name.Label */
+      .syntax .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+      .syntax .nt { color: #062873; font-weight: bold } /* Name.Tag */
+      .syntax .nv { color: #bb60d5 } /* Name.Variable */
+      .syntax .ow { color: #007020; font-weight: bold } /* Operator.Word */
+      .syntax .w { color: #bbbbbb } /* Text.Whitespace */
+      .syntax .mf { color: #40a070 } /* Literal.Number.Float */
+      .syntax .mh { color: #40a070 } /* Literal.Number.Hex */
+      .syntax .mi { color: #40a070 } /* Literal.Number.Integer */
+      .syntax .mo { color: #40a070 } /* Literal.Number.Oct */
+      .syntax .sb { color: #4070a0 } /* Literal.String.Backtick */
+      .syntax .sc { color: #4070a0 } /* Literal.String.Char */
+      .syntax .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+      .syntax .s2 { color: #4070a0 } /* Literal.String.Double */
+      .syntax .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+      .syntax .sh { color: #4070a0 } /* Literal.String.Heredoc */
+      .syntax .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+      .syntax .sx { color: #c65d09 } /* Literal.String.Other */
+      .syntax .sr { color: #235388 } /* Literal.String.Regex */
+      .syntax .s1 { color: #4070a0 } /* Literal.String.Single */
+      .syntax .ss { color: #517918 } /* Literal.String.Symbol */
+      .syntax .bp { color: #007020 } /* Name.Builtin.Pseudo */
+      .syntax .vc { color: #bb60d5 } /* Name.Variable.Class */
+      .syntax .vg { color: #bb60d5 } /* Name.Variable.Global */
+      .syntax .vi { color: #bb60d5 } /* Name.Variable.Instance */
+      .syntax .il { color: #40a070 } /* Literal.Number.Integer.Long */
+    </style>
+    <script type="text/javascript">
+      function init() {
+        // you can override this saveState procedure here
+        app.saveState = function (state) {
+          setTimeout(function () {
+            console.log('save', state);
+            $.post('http://localhost:3141/store/', {'data': JSON.stringify(state)}, undefined, 'json');
+          }, 10);
+        }
+
+        fetch('static/data/data.json')
+          .then(response => response.json())
+          .then(j => window.app.importMetadata(j))
+          .then(() => fetch('static/data/qa.txt'))
+          .then(response => response.text())
+          .then(text => window.app.importQA(window.app.readQuestionsTextfile(text)))
+          .then(() => fetch('static/data/state.json'))
+          .then(response => response.json())
+          .then(j => window.app.importState(j))
+          .then(() => window.app.updateUI())
+          .then(() => app.startRounds());
+      }
+    </script>
+  </head>
+
+  <body onload="init()">
+    <header>
+      <h1>PyGraz Jeopardy 🎅 round <span id="round">N</span></h1>
+      <div class="categories">
+        <div class="category">import stdlib</div>
+        <div class="category">what the package?</div>
+        <div class="category">apply(operator)</div>
+        <div class="category">True or False</div>
+      </div>
+    </header>
+
+    <main>
+      <div id="qa">
+        <div id="question">
+          first release with unicode support: v______
+        </div>
+        <div id="delimiter" onclick="window.app.showA()" ontouchstart="window.app.showA()">
+          <img src="static/img/python-icon.png" alt="───────────────────" />
+        </div>
+        <div id="answer">
+          2.0
+        </div>
+      </div>
+      <div id="overview">
+        <div class="difficulty">
+          <button onclick="window.app.showQ('import stdlib', 100)">100</button>
+          <button onclick="window.app.showQ('what the package?', 100)" class="correct-answer">foofighter</button>
+          <button onclick="window.app.showQ('apply(operator)', 100)" class="wrong-answer">leo</button>
+          <button onclick="window.app.showQ('True or False', 100)">100</button>
+        </div>
+        <div class="difficulty">
+          <button onclick="window.app.showQ('import stdlib', 200)">200</button>
+          <button onclick="window.app.showQ('what the package?', 200)">200</button>
+          <button onclick="window.app.showQ('apply(operator)', 200)">200</button>
+          <button onclick="window.app.showQ('True or False', 200)">200</button>
+        </div>
+        <div class="difficulty">
+          <button onclick="window.app.showQ('import stdlib', 300)">300</button>
+          <button onclick="window.app.showQ('what the package?', 300)" class="wrong-answer">foofighter</button>
+          <button onclick="window.app.showQ('apply(operator)', 300)">300</button>
+          <button onclick="window.app.showQ('True or False', 300)">300</button>
+        </div>
+        <div class="difficulty">
+          <button onclick="window.app.showQ('import stdlib', 400)">400</button>
+          <button onclick="window.app.showQ('what the package?', 400)" class="wrong-answer">leo</button>
+          <button onclick="window.app.showQ('apply(operator)', 400)">400</button>
+          <button onclick="window.app.showQ('True or False', 400)">400</button>
+        </div>
+        <div class="difficulty">
+          <button onclick="window.app.showQ('import stdlib', 500)">500</button>
+          <button onclick="window.app.showQ('what the package?', 500)">500</button>
+          <button onclick="window.app.showQ('apply(operator)', 500)">500</button>
+          <button onclick="window.app.showQ('True or False', 500)">500</button>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="teams">
+        <div class="team" id="team1">
+          <button onclick="window.app.supplyCorrectA(1)">
+            <div class="team-name">meisterluk</div>
+            <div class="team-points">100</div>
+          </button>
+        </div>
+        <div class="team" id="team2">
+          <button onclick="window.app.supplyCorrectA(2)">
+            <div class="team-name">foofighter</div>
+            <div class="team-points">200</div>
+          </button>
+        </div>
+        <div class="team" id="team3">
+          <button onclick="window.app.supplyCorrectA(3)">
+            <div class="team-name">leo</div>
+            <div class="team-points">400</div>
+          </button>
+        </div>
+        <div class="team" id="team4">
+          <button onclick="window.app.supplyCorrectA(4)">
+            <div class="team-name">john.doe</div>
+            <div class="team-points">500</div>
+          </button>
+        </div>
+      </div>
+    </footer>
+
+    <div id="overlay">
+      <div id="specify-teams">
+        <h3>Team names</h3>
+        <p>Specify team names as comma-separated list</p>
+        <form style="text-align:center" action="#">
+          <input type="text" placeholder="team1, team2, …" />
+          <input type="submit" onclick="window.app.setTeamNames()" value="Let's go" />
+        </form>
+      </div>
+      <div id="notification">
+        <h3>Notification</h3>
+        <p class="text"></p>
+        <p><button onclick="window.app.closeOverlay()">Close</button></p>
+      </div>
+      <div id="randomizer">
+        <h3>Random team generator</h3>
+        <p class="text"></p>
+        <p><button onclick="window.app.closeOverlay()">Close</button></p>
+      </div>
+      <div id="winner">
+        <h3>Winner</h3>
+        <p>All your base are belong to you, <span class="text"></span></p>
+        <p><button onclick="window.app.startRounds()">Close</button></p>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="static/js/jeopardy.js"></script>
+  </body>
+</html>

@@ -1,0 +1,176 @@
+import stdlib
+
+100: "Shallow and deep copy operations" copy
+200: "Future statement definitions" __future__
+300: "Interpret bytes as packed binary data" struct
+400: "Simple lexical analysis" shlex
+500: "Helpers for computing deltas" difflib
+
+what the package?
+
+100: "turtle" Turtle graphics
+200: "doctest" Test interactive Python examples
+300: "py_compile" Compile Python source files
+400: "imp" Access the import internals
+500: "code" Interpreter base classes
+*: "this" Python Zen
+
+Python History [fill in the blank]
+
+100: "I chose Python as a working title for the project, being in a slightly irreverent mood (and a big fan of _____ Python's ______). "    "Monty" "Flying Circus"
+200: "Guido stepped down as BDFL in ______" July 2018
+300: "first release with with statement support: v______" 2.5
+400: "tail call optimization _______" will never be supported according to Guido van Rossum
+500: "PyGraz was founded in ______" 2010
+
+apply(operator)
+
+100: not   converts value to a boolean and negates it
+200: **    exponentiation, variadic arguments
+300: :     introduces block, function annotations
+400: ~     bit-wise operation unary invert as two's complement
+500: @     matrix multiplication
+
+magic methods
+
+100: "__contains__" in
+200: "__missing__" Called by dict.__getitem__() to implement self[key] for dict subclasses when key is not in the dictionary
+300: "__length_hint__" Should return an estimated length for the object. The length must be an integer >= 0. This method is purely an optimization and is never required for correctness.
+400: "__divmod__" Take two (non complex) numbers as arguments and return a pair of numbers consisting of their quotient and remainder when using integer division
+500: "__ipow__" **=
+
+F.A.Q.
+
+100: "Why am I getting an UnboundLocalError when the variable has a value?"
+	>>> x = 10
+	>>> def foo():
+	...     print(x)
+	...     x += 1
+200: "What is the difference between arguments and parameters?"
+	def func(foo, bar=None, **kwargs):
+    	pass
+    func(42, bar=314, extra=somevar)
+
+    parameters = {foo, bar, kwargs}
+    arguments = {42, 314, somevar}
+300: "Why do lambdas defined in a loop with different values all return the same result?"
+	>>> squares = []
+	>>> for x in range(5):
+	...     squares.append(lambda: x**2)
+	>>> squares[2]()
+	16
+	>>> squares[4]()
+	16
+400: "Is there an equivalent of C’s “?:” ternary operator?"
+	Yes, there is. The syntax is as follows:
+
+		[on_true] if [expression] else [on_false]
+
+		x, y = 50, 25
+		small = x if x < y else y
+
+	Before this syntax was introduced in Python 2.5, a common idiom was to use logical operators:
+
+		[expression] and [on_true] or [on_false]
+500: "Is it possible to write obfuscated one-liners in Python? What does this code do?
+	print(list(map(lambda x,f=lambda x,f:(f(x-1,f)+f(x-2,f)) if x>1 else 1:	f(x,f), range(10))))"
+	Compute the first 10 Fibonacci numbers
+
+command line arguments
+
+100: -V ,  --version
+     Prints the Python version number of the  executable  and  exits.
+     When given twice, print more information about the build.
+200: -O
+     Remove  assert  statements and any code conditional on the value
+     of __debug__; augment the filename for compiled (bytecode) files
+     by adding .opt-1 before the .pyc extension.
+300: -c command
+     Specify the command to execute (see next section).  This  terminates
+     the option list (following options are passed as arguments to the command).
+400: -u
+     Force  the  binary  I/O  layers  of  stdout  and  stderr  to  be
+     unbuffered.   stdin is always buffered.  The text I/O layer will
+     still be line-buffered.
+500: -OO
+     Do  -O and also discard docstrings; change the filename for compiled
+     (bytecode) files by adding .opt-2 before the  .pyc  extension.
+
+True or False
+
+100: Python had a bool type from the very beginning
+     No, it was introduced in Python 2.3 (PEP 285)
+200: A PEP specifies that there will be no official Python 2.8 release
+     PEP 404 -- Python 2.8 Un-release Schedule
+300: A PEP specifies DB ORM methods
+     Yes, PEP 249 -- Python Database API Specification v2.0
+400: CPython (e.g. 2.3) is famous for using Heapsort instead of the more common QuickSort.
+     No, CPython 2.3 introduced Timsort by Tim Peters. It runs with O(n log n) worst case and O(n) best [sorted] case.
+500: Some PEP reintroduces u"" unicode literals
+     Yes, PEP 414 -- Explicit Unicode Literal for Python 3.3
+     by Armin Ronacher and Nick Coghlan
+
+sys.stdout.readlines()
+
+100: print(0 and 1 or 2 if 3 else 4)
+     2
+200: print(codecs.encode('cltenm', 'rot13'))
+	 pygraz
+300: import this
+     Zen of Python
+400: print(str((lambda v: type(v)('nan'))(1.2)).title()*8)
+     NanNanNanNanNanNanNanNan
+500: print('{:6e}'.format(4j.imag) + '{:6e}'.format(4j.imag)[-3::-1])
+     '4.000000e+00+e000000.4'
+
+expect Exception
+
+100: 1/0
+     Traceback (most recent call last):
+       File "<stdin>", line 1, in <module>
+     ZeroDivisionError: division by zero
+200: '{:s}'.format(math.pi)
+     Traceback (most recent call last):
+       File "<stdin>", line 1, in <module>
+     ValueError: Unknown format code 's' for object of type 'float'
+300: 'alskdj'.decode('utf-8')
+     Traceback (most recent call last):
+       File "<stdin>", line 1, in <module>
+     AttributeError: 'str' object has no attribute 'decode'
+400: float(unicodedata.name('①'))
+     Traceback (most recent call last):
+       File "<stdin>", line 1, in <module>
+     ValueError: could not convert string to float: 'CIRCLED DIGIT ONE'
+500: open('404.txt')
+     Traceback (most recent call last):
+       File "<stdin>", line 1, in <module>
+     FileNotFoundError: [Errno 2] No such file or directory: '404.txt'
+
+PyPI libraries
+
+100: numpy
+     NumPy: array processing for numbers, strings, records, and objects
+200: django
+     A high-level Python Web framework that encourages rapid development and clean, pragmatic design.
+300: pytz
+     World timezone definitions, modern and historical
+400: tornado
+     Tornado is a Python web framework and asynchronous networking library, originally developed at FriendFeed.
+500: six
+     Python 2 and 3 compatibility utilities
+
+Monty Python Trivia
+
+100: egg
+     python package distribution format
+200: cheese shop
+     PyPI (Cheese Shop sketch)
+300: Bicycle Repair Man
+     The Bicycle Repair Man project is an attempt to create refactoring browser functionality for python. It is packaged as a library that can be added to IDEs and editors to provide refactoring capabilities. Bindings for Emacs and Vi are included with the package. 
+     ("Bicycle Repairman", superhero in a Monty Python skit, his special power was repairing bicycles)
+400: spam and eggs
+     "spam and eggs" as replacement for traditional "foo and bar"
+500: Grail
+     Grail was a free extensible multi-platform web browser written in the Python programming language. The project was started in August 1995, with its first public release in November of that year. The last official release was version 0.6 in 1999.
+     One of the major distinguishing features of Grail was the ability to run client-side Python code, in much the same way as mainstream browsers run client-side JavaScript code.
+     ("Monty Python and the Holy Grail" movie)

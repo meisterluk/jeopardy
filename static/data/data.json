@@ -1,0 +1,8 @@
+{
+	"teams": [],
+	"rounds": [
+		["import stdlib", "Python history", "magic methods", "True or False"],
+		["what the package?", "F.A.Q.", "command line arguments", "apply(operator)"],
+		["PyPI libraries", "sys.stdout.readlines()", "except Exception", "Monty Python Trivia"]
+	]
+}

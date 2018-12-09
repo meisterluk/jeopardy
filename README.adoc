@@ -26,7 +26,29 @@ This way, the first team giving the correct answer got the difficulty level as c
 Once all questions are answered, the team with most points won the round and got chocolate.
 We played 2 rounds (of 3 rounds, I prepared) this night.
 
+Which categories did you have at PyGraz?
+----------------------------------------
 
+=== Round 1
+
+import stdlib:: Given the official description of a stdlib package, give the package name
+Python history:: Given a text about Python's past and present, fill in the blank
+magic methods:: Given the method name of a magic method, find the operator or semantics when this method is triggered
+True or False:: Given a generic statement about Python, tell whether it is true or false
+
+=== Round 2
+
+what the package:: Given the name of a stdlib package, find the official description or a typical usecase to be handled with this package
+F.A.Q:: Given an excerpt of the official F.A.Q, answer the question posed
+command line arguments:: Given a CLI argument/flag, explain the semantics, i.e. how the executable's behavior changes
+apply(operator):: Given an operator/lexical token, find all context in which this operator occurs in python
+
+=== Round 3
+
+PyPI libraries:: Given a famous Python library available on PyPI, find the usecase this package solves
+sys.stdout.readlines():: Given some Python source code, find the string printed to stdout
+except Exception:: Given some Python source code, find which type of Exception is triggered
+Monty Python Trivia:: Given some Monty Python expression, find the usage of this expression in the programming context
 
 What works properly?
 --------------------

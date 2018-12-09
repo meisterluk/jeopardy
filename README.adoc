@@ -26,8 +26,10 @@ This way, the first team giving the correct answer got the difficulty level as c
 Once all questions are answered, the team with most points won the round and got chocolate.
 We played 2 rounds (of 3 rounds, I prepared) this night.
 
-What works?
------------
+
+
+What works properly?
+--------------------
 
 * loading questions and answers in HTML format
 * users has to specify team names
